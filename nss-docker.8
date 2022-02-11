@@ -1,0 +1,43 @@
+.TH NSS-DOCKER 8 2022-02-11 "nss-docker 0.1"
+
+.SH NAME
+nss-docker, libnss_docker\&.so\&.2 - Hostname resolution for Docker containers
+
+.SH DESCRIPTION
+.PP
+\fBnss-docker\fP is a plug-in module for the GNU Name Service Switch (NSS) functionality of the glibc providing hostname resolution for the names and UUID of Docker containers.
+.PP
+To use this module, add "docker" to the line starting with "hosts:" in the file /etc/nssswitch.conf.
+
+.SH EXAMPLE
+.PP
+Here is an example of /etc/nssswitch.conf with "docker" enabled:
+.PP
+.RS 4
+.EX
+passwd: files systemd
+group: files [SUCCESS=merge] systemd
+shadow: files systemd
+gshadow: files systemd
+
+publickey: files
+
+hosts: mymachines mdns4_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname \fBdocker\fP dns
+networks: files
+
+protocols: files
+services: files
+ethers: files
+rpc: files
+
+netgroup: files
+.EE
+
+It is recommended to place "docker" at the end \fBbut before\fP "dns".
+
+.SH SEE ALSO
+.PP
+\fBnsswitch.conf\fP(5), \fBgetent\fP(1)
+
+.SH AUTHOR
+Kenji 'Nhqml' Gaillac
