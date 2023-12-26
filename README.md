@@ -15,7 +15,7 @@
 Requires `meson` and `ninja`.
 
 ```bash
-meson build && cd build && meson install
+meson setup builddir && cd builddir && meson install
 ```
 
 ## Build
@@ -23,5 +23,5 @@ meson build && cd build && meson install
 Requires `meson` and `ninja`.
 
 ```bash
-meson --buildtype=debug build && cd build && meson compile
+meson setup --buildtype=debug builddir && cd builddir && meson compile
 ```

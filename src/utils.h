@@ -5,6 +5,16 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ERROR(...)                           \
+    do                                       \
+    {                                        \
+        char buf[1024];                      \
+        strerror_r(errno, buf, sizeof(buf)); \
+        fprintf(stderr, "error: ");          \
+        fprintf(stderr, __VA_ARGS__);        \
+        fprintf(stderr, ": %s\n", buf);      \
+    } while (0)
+
 /**
 ** \brief Safe malloc wrapper
 */

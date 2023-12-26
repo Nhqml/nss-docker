@@ -9,6 +9,8 @@ nss-docker, libnss_docker\&.so\&.2 - Hostname resolution for Docker containers
 .PP
 To use this module, add "docker" to the line starting with "hosts:" in the file /etc/nssswitch.conf.
 
+In order to be able to use this module, you \fBneed to have the docker daemon running AND be allowed to list docker containers\fP (e.g. being root, being part of the "docker" group, using an authz plugin that allows you to do so, etc.).
+
 .SH EXAMPLE
 .PP
 Here is an example of /etc/nssswitch.conf with "docker" enabled:

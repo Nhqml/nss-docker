@@ -1,5 +1,3 @@
-#include <errno.h>
-#include <error.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -83,7 +81,10 @@ struct container *inspect_container(const char *name, int af)
 {
     CURL *curl = curl_easy_init();
     if (curl == NULL)
-        error(1, errno, "failed when trying to retrieve containers");
+    {
+        ERROR("error: failed when trying to retrieve containers: unable to initialize curl");
+        return NULL;
+    }
 
     struct curl_slist *headers = curl_slist_append(NULL, "Accept: application/json");
     headers = curl_slist_append(headers, "Content-Type: application/json; charset=utf-8");
@@ -100,7 +101,10 @@ struct container *inspect_container(const char *name, int af)
 
     CURLcode res = curl_easy_perform(curl);
     if (res != CURLE_OK)
-        error(1, 0, "failed when trying to retrieve containers: %s", curl_easy_strerror(res));
+    {
+        ERROR("failed when trying to retrieve containers: %s", curl_easy_strerror(res));
+        return NULL;
+    }
 
     long http_code = 0;
     curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
