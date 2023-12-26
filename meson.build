@@ -1,6 +1,6 @@
 project(
   'nss-docker', 'c',
-  version: '0.1',
+  version: '0.2',
   license: 'GPL-3.0-or-later',
   meson_version: '>=0.61.1',
   default_options: [
